@@ -30,13 +30,13 @@ Bayesian search aims to find strong configurations with fewer measurements than 
 
 ## Explore the platform
 
-Confiron unifies two complementary projects:
+Confiron unifies two complementary projects: [hf_validator](https://github.com/Maorb23/hf_validator) and [llm-optimizer-trt](https://github.com/Maorb23/llm-optimizer-trt).
 
 | Component | Role | Documentation |
 | --- | --- | --- |
-| **Model discovery and validation** (`hf_validator`) | Recommendations, evaluation, datasets, web study review, and orchestration | [Setup and workflows](../hf_validator/README.md) |
-| **Inference optimization** (`llm-optimizer`) | Bayesian search, framework benchmarking, persistent studies, and execution telemetry | [Optimizer guide](../bento_extend/llm-optimizer/README.md) |
+| **Model discovery and validation** (`hf_validator`) | Recommendations, evaluation, datasets, web study review, and orchestration | [Setup and workflows](https://github.com/Maorb23/hf_validator/blob/main/README.md) |
+| **Inference optimization** (`llm-optimizer`) | Bayesian search, framework benchmarking, persistent studies, and execution telemetry | [Optimizer guide](https://github.com/Maorb23/llm-optimizer-trt/blob/main/README.md) |
 
-Start with the [web application setup](../hf_validator/README.md#run-the-web-app-locally), explore [model recommendations](../hf_validator/README.md#1-recommendation), or run [Bayesian optimization directly](../bento_extend/llm-optimizer/README.md#bayesian-optimization).
+Start with the [web application setup](https://github.com/Maorb23/hf_validator/blob/main/README.md#run-the-web-app-locally), explore [model recommendations](https://github.com/Maorb23/hf_validator/blob/main/README.md#1-recommendation), or run [Bayesian optimization directly](https://github.com/Maorb23/llm-optimizer-trt/blob/main/README.md#bayesian-optimization).
 
-The optimizer extends [BentoML LLM Optimizer](https://github.com/bentoml/llm-optimizer) with Optuna-based search and native TensorRT-LLM support. An optional [NVIDIA Dynamo AI Configurator integration](../bento_extend/llm-optimizer/docs/trtllm-dynamo.md) adds offline deployment sizing alongside measured engine tuning.
+The optimizer extends [BentoML LLM Optimizer](https://github.com/bentoml/llm-optimizer) with Optuna-based search and native TensorRT-LLM support. An optional [NVIDIA Dynamo AI Configurator integration](https://github.com/Maorb23/llm-optimizer-trt/blob/main/docs/trtllm-dynamo.md) adds offline deployment sizing alongside measured engine tuning.
