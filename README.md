@@ -22,6 +22,37 @@ Confiron brings model discovery, validation, and inference optimization into one
 
 Use the web application for guided discovery and study review, or the CLI and notebooks for hands-on experimentation. Dry runs let you inspect the workflow before allocating GPUs; live studies run on Nebius with your configured credentials and worker images.
 
+## Bring your own workload
+
+The web app supports three text-only dataset formats:
+
+| Format | Expected record fields | Prompt used |
+| --- | --- | --- |
+| ShareGPT | `conversations` containing `from` / `value` turns | First `human` turn |
+| Alpaca | `instruction` and optional `input` | Instruction plus input |
+| Messages | `messages` containing `role` / `content` turns | First `user` message |
+
+Provide a Hugging Face dataset repository ID or URL, a dataset revision, and a relative JSON or JSONL file path, plus the tokenizer model and its revision. Messages must use `system`, `user`, or `assistant` roles with nonempty text content. The selected file defines the records; the web app does not apply split or configuration filtering.
+
+Prompts are tokenized and repeated or truncated to the requested input length. Each request uses the configured fixed output length, and each framework and trial uses the same frozen workload. These optimization benchmarks measure serving performance rather than answer quality or full conversations.
+
+Live Nebius jobs execute your selected workload and collect measurements for that study. The web app currently does not reuse offline study results for these jobs, so allow time for engine startup and benchmarking.
+
+## Plan an effective search
+
+**Start with 20 trials per framework study.** The default TPE sampler uses random sampling for its initial exploration phase (`n_startup_trials=10`). Choose more than 10 trials to leave room for guided optimization afterward. Failed trials and duplicate proposals can reduce the useful observations collected.
+
+For example, five choices for each of two independent parameters produce **25 configurations**:
+
+| Example vLLM parameter | Choices |
+| --- | --- |
+| Server `max_num_seqs` | `16, 32, 64, 96, 128` |
+| Client `max_concurrency` | `8, 16, 32, 48, 64` |
+
+A 20-trial budget leaves room to move beyond the initial random phase within this search space. For 10 or fewer distinct configurations, consider a full grid comparison instead. For comparisons at a fixed concurrency, hold `max_concurrency` constant and vary another supported server parameter.
+
+Set the trial budget explicitly for each framework. Other samplers and customized startup counts may need different budgets; 20 trials is a starting recommendation, not a guarantee of convergence or improved performance.
+
 ## Why Confiron
 
 Model rankings alone do not tell you how a model will behave on your data—or which serving settings will make it useful. Confiron connects those decisions: research informs the shortlist, validation checks behavior, and measured optimization explores the performance tradeoffs.
